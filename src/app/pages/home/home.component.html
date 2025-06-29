@@ -1,0 +1,45 @@
+<app-layout-app>
+  <div class="flex h-full">
+    <app-aside />
+
+    <!-- Contenido principal -->
+    <div class="flex-1 bg-gray-50 dark:bg-gray-800 overflow-hidden">
+      <div class="h-full flex flex-col">
+        <!-- Header de la página -->
+        <div
+          class="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-6 py-4"
+        >
+          <div class="flex items-center justify-between">
+            <div>
+              <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
+                Mis Tareas
+              </h1>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                Gestiona y organiza tus actividades diarias
+              </p>
+            </div>
+
+            <!-- Botón agregar tarea -->
+            <app-new-task />
+          </div>
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="flex-1 overflow-auto">
+          <div class="p-6">
+            <!-- Filtros y estadísticas -->
+            <app-stats />
+            <!-- Filtros -->
+            <app-filters />
+
+            <!-- Lista de tareas -->
+            <div class="space-y-3"></div>
+            <app-task />
+            <!-- Paginación -->
+            <app-pagination />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-layout-app>
