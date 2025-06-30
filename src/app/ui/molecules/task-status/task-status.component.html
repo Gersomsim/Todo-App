@@ -1,0 +1,11 @@
+@if (loading()) {
+<div class="w-5 h-5 mt-1 bg-gray-600 rounded-sm animate-ping infinite"></div>
+} @else {
+<button [ngClass]="getClasses()" (click)="ToggleCompleted()">
+  @if (task.completed) {
+  <span class="text-white">
+    <app-icon icon="check" />
+  </span>
+  }
+</button>
+}
