@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseAdapter } from '../common/base.adapter';
+import { BaseAdapter } from './common/base.adapter';
 import { Task } from '@core/domain/models';
 import { HttpService } from '@infrastructure/http/http.service';
 import { CommonMapper } from '@core/application/mappers/common/common.mapper';

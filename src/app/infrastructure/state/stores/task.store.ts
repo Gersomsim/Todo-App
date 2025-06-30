@@ -1,4 +1,4 @@
-import { BaseStore } from '../store/common/base.store';
+import { BaseStore } from './common/base.store';
 import { Task } from '@core/domain/models/task.model';
 
 /**

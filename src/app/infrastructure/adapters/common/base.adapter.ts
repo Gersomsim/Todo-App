@@ -7,46 +7,46 @@ export abstract class BaseAdapter<T, Persistence> {
   protected abstract baseUrl: string;
 
   constructor(
-    private readonly httpService: HttpService,
-    private readonly mapper: CommonMapper
+    private readonly http: HttpService,
+    private readonly mapperCommon: CommonMapper
   ) {}
 
   async getAll(filters?: any): Promise<T[]> {
-    const response = this.httpService
+    const response = this.http
       .get<ApiResponse<Persistence[]>>(this.baseUrl, filters)
       .pipe(
         map((response) =>
-          response.data.map((item) => this.mapper.toDomain(item))
+          response.data.map((item) => this.mapperCommon.toDomain(item))
         )
       );
     return lastValueFrom(response);
   }
 
   async getById(id: string): Promise<T> {
-    const response = this.httpService
+    const response = this.http
       .get<ApiResponse<Persistence>>(`${this.baseUrl}/${id}`)
-      .pipe(map((response) => this.mapper.toDomain(response.data)));
+      .pipe(map((response) => this.mapperCommon.toDomain(response.data)));
     return lastValueFrom(response);
   }
 
   async create(body: any): Promise<T> {
-    const response = this.httpService
+    const response = this.http
       .post<ApiResponse<Persistence>>(this.baseUrl, body)
-      .pipe(map((response) => this.mapper.toDomain(response.data)));
+      .pipe(map((response) => this.mapperCommon.toDomain(response.data)));
     return lastValueFrom(response);
   }
 
   async update(id: string, body: any): Promise<T> {
-    const response = this.httpService
+    const response = this.http
       .put<ApiResponse<Persistence>>(`${this.baseUrl}/${id}`, body)
-      .pipe(map((response) => this.mapper.toDomain(response.data)));
+      .pipe(map((response) => this.mapperCommon.toDomain(response.data)));
     return lastValueFrom(response);
   }
 
   async delete(id: string): Promise<T> {
-    const response = this.httpService
+    const response = this.http
       .delete<ApiResponse<Persistence>>(`${this.baseUrl}/${id}`)
-      .pipe(map((response) => this.mapper.toDomain(response.data)));
+      .pipe(map((response) => this.mapperCommon.toDomain(response.data)));
     return lastValueFrom(response);
   }
 }

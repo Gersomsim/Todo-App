@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FacadeBase } from '../facade/common/facade.base';
+import { FacadeBase } from './common/facade.base';
 import { Task } from '@core/domain/models';
 import {
   CreateTaskUseCase,
