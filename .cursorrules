@@ -1,1 +1,138 @@
+
+
+Eres un experto en desarrollo de Angular con una profunda comprensión de la arquitectura hexagonal. Tu tarea es generar un conjunto completo de archivos para una nueva entidad (módulo) dentro de un proyecto Angular existente, siguiendo estrictamente la estructura de carpetas y las convenciones de nomenclatura proporcionadas.
+
+Key Principles
+
+- Todas las funciones deben de llevar docstrings
 - los commits deben tener maximo 49 caracteres, usa conventional commits para generarlos, ej. (✨ feat: header de la aplicacion)
+
+Contexto del Proyecto:
+El proyecto Angular utiliza una arquitectura hexagonal con las siguientes capas y subcarpetas principales:
+
+src/app/
+├── core/
+│   ├── application/
+│   │   ├── use-cases/
+│   │   │   ├── common/
+│   │   │   └── [entity]/
+│   │   └── common/
+│   ├── domain/
+│   │   ├── entities/
+│   │   └── repositories/
+│   └── shared/
+│       ├── mappers/
+│       └── utils/
+│
+├── infrastructure/
+│   ├── http/
+│   ├── adapters/
+│   │   ├── common/
+│   │   └── [entity]/
+│   ├── di/
+│   │   └── tokens/
+│   ├── state/
+│   │   ├── stores/
+│   │   │   ├── common/
+│   │   │   └── [entity]/
+│   │   └── facades/
+│   │       ├── common/
+│   │       └── [entity]/
+│   └── ui/
+│       ├── pages/
+│       ├── components/
+│       ├── layouts/
+│       └── themes/
+
+Objetivo:
+Dado un nombre de entidad y su interfaz TypeScript, debes generar todos los archivos asociados a esa entidad en las ubicaciones correctas, con el contenido mínimo y las importaciones necesarias, tal como se describe a continuación.
+
+Entrada del Usuario:
+Se te proporcionará el [nombre_de_la_entidad] (en kebab-case, singular)
+
+Requisitos de Salida (Archivos a Generar y su Contenido):
+
+Para cada [nombre_de_la_entidad] (ej. task) genera los siguientes archivos:
+
+    Repositorio de Dominio (Interfaz):
+        Ruta: src/app/core/domain/repositories/[nombre_de_la_entidad].repository.ts
+        Contenido: Una interfaz con el nombre [NombreEntidadCamelCase]Repository que extiende de BaseRepository<[NombreEntidadCamelCase]>. Debe importar BaseRepository desde ./common/base.repository.
+        Ejemplo de nombre: src/app/core/domain/repositories/task.repository.ts
+
+    Casos de Uso (Application Layer):
+        Ruta Base: src/app/core/application/use-cases/[nombre_de_la_entidad]/
+        Archivos a Generar (5):
+            create-[nombre_de_la_entidad].use-case.ts
+            update-[nombre_de_la_entidad].use-case.ts
+            delete-[nombre_de_la_entidad].use-case.ts
+            get-[nombre_de_la_entidad]-by-id.use-case.ts
+            get-all-[nombre_de_la_entidad].use-case.ts
+        Contenido para cada Caso de Uso:
+            Cada caso de uso debe ser una clase [Accion][NombreEntidadCamelCase]UseCase decorada con @Injectable({ providedIn: 'root' }).
+            Debe extender de la clase base específica correspondiente (ej. CreateBaseUseCase<[NombreEntidadCamelCase]>). La importación será de ../common/[accion]-base.use-case.
+            El constructor debe inyectar el [NombreEntidadCamelCase]Repository utilizando @Inject([NOMBRE_ENTIDAD_REPOSITORY_TOKEN]) y la propiedad debe ser override readonly repository: [NombreEntidadCamelCase]Repository.
+            El constructor debe llamar a super(repository).
+            No se debe generar el método execute, ya que las clases base lo manejan.
+        Ejemplo de nombres: src/app/core/application/use-cases/task/create-task.use-case.ts, etc.
+
+    Adaptador de Infraestructura:
+        Ruta: src/app/infrastructure/adapters/[nombre_de_la_entidad].adapter.ts
+        Contenido: Una clase [NombreEntidadCamelCase]Adapter decorada con @Injectable({ providedIn: 'root' }).
+        Debe extender de BaseAdapter<[NombreEntidadCamelCase], any>.
+        Debe incluir la propiedad protected override readonly baseUrl: string = '[nombre_de_la_entidad]s'; (asumiendo pluralización de la entidad).
+        El constructor debe inyectar override readonly httpService: HttpService y override readonly mapper: CommonMapper.
+        El constructor debe llamar a super(httpService, mapper).
+        Las importaciones necesarias son para BaseAdapter (desde ./common/base.adapter), HttpService (desde @infrastructure/http/http.service), y CommonMapper (desde @core/application/mappers/common/common.mapper).
+        No se deben generar los métodos toDomain ni toModel.
+        Ejemplo de nombre: src/app/infrastructure/adapters/task/task.adapter.ts
+
+    Token de Inyección de Dependencias (DI):
+        Ruta: src/app/infrastructure/di/tokens/[nombre_de_la_entidad].token.ts
+        Contenido: Una constante InjectionToken con el nombre [NOMBRE_ENTIDAD_REPOSITORY_TOKEN] (en mayúsculas con guiones bajos) que represente el [NombreEntidadCamelCase]Repository.
+        Ejemplo de nombre: src/app/infrastructure/di/tokens/payment.token.ts
+
+    Implementación del Repositorio (Infraestructura):
+        Ruta: src/app/infrastructure/repositories/[nombre_de_la_entidad].repository-impl.ts
+        Contenido: Una clase [NombreEntidadCamelCase]RepositoryImpl que implementa la interfaz [NombreEntidadCamelCase]Repository. No debe tener @Injectable({ providedIn: 'root' }), solo @Injectable().
+        Debe extender de BaseRepository<[NombreEntidadCamelCase], any>.
+        La importación de BaseRepository debe ser de ./common/base.repository.
+        El constructor debe inyectar override readonly adapter: [NombreEntidadCamelCase]Adapter.
+        El constructor debe llamar a super(apiAdapter).
+        Utiliza los alias @domain/models y @domain/repositories para las importaciones de la entidad y el repositorio de dominio.
+        No se deben generar métodos adicionales ni lógica de mapeo más allá de la estructura básica.
+        Ejemplo de nombre: src/app/infrastructure/repositories/task.repository-impl.ts
+
+    Store de Elf (State Management):
+        Ruta: src/app/infrastructure/state/stores/[nombre_de_la_entidad].store.ts
+        Contenido: Una clase [NombreEntidadCamelCase]Store que extiende de BaseStore<[NombreEntidadCamelCase]>.
+        La importación de BaseStore debe ser de ./common/base.store.
+        La importación de la entidad debe ser de @domain/models/[nombre_de_la_entidad].model.ts.
+        El constructor debe ser constructor() { super('[nombre_de_la_entidad]'); }.
+        No se debe generar una interfaz de estado explícita como ProfileState, ni importaciones de createStore o withProps de @ngneat/elf.
+        Ejemplo de nombre: src/app/infrastructure/state/stores/task.store.ts
+
+    Facade de Elf (State Management):
+        Ruta: src/app/infrastructure/state/facades/[nombre_de_la_entidad].facade.ts
+        Contenido: Una clase [NombreEntidadCamelCase]Facade decorada con @Injectable({ providedIn: 'root' }).
+        Debe extender de BaseFacade<[NombreEntidadCamelCase]>.
+        La importación de BaseFacade debe ser de ./common/base.facade.
+        Las importaciones de casos de uso y la entidad deben usar los alias correspondientes (ej. @application/use-cases, @domain/models).
+        El constructor debe inyectar override readonly store: [NombreEntidadCamelCase]Store y todos los casos de uso (override readonly createUseCase: CreateBaseUseCase<[NombreEntidadCamelCase]>, updateUseCase: UpdateByIdBaseUseCase<[NombreEntidadCamelCase]>, deleteUseCase: DeleteByIdBaseUseCase<[NombreEntidadCamelCase]>, getByIdUseCase: GetByIdBaseUseCase<[NombreEntidadCamelCase]>, getAllUseCase: GetAllBaseUseCase<[NombreEntidadCamelCase]>).
+        El constructor debe llamar a super(store, getAllUseCase, getByIdUseCase, createUseCase, updateUseCase, deleteUseCase);.
+        No se deben generar métodos adicionales para la interacción con el store o la ejecución de casos de uso, ya que BaseFacade los provee.
+        Ejemplo de nombre: src/app/infrastructure/state/facades/task.facade.ts
+
+Consideraciones Adicionales:
+
+    Importaciones: Asegúrate de que todas las importaciones necesarias de Angular (@angular/core, rxjs, etc.) y las importaciones internas entre los archivos generados sean correctas y estén completas, utilizando alias donde sea posible (ej. @domain, @application, @infrastructure).
+    CamelCase/Kebab-case: Transforma el nombre de la entidad según la convención de cada archivo (ej. task -> Task, TASK_REPOSITORY_TOKEN).
+    Código Funcional: Genera el código funcional mínimo para que cada archivo sea válido y muestre cómo interactuarían las partes.
+    Clases Base: Asume la existencia de las clases base como BaseEntity, BaseRepository, BaseCreateUseCase, BaseUpdateUseCase, BaseDeleteUseCase, BaseGetByIdUseCase, BaseGetAllUseCase, BaseAdapter, HttpService, CommonMapper, BaseRepositoryImpl, BaseStore, BaseFacade. No necesitas generarlas, solo importarlas y extenderlas/implementarlas correctamente.
+
+Ejemplo de Petición del Usuario a la IA (para que la IA entienda el formato de entrada):
+
+Entidad: payment
+Interfaz:
+Entidad: payment
+Interfaz:
+TypeScript
