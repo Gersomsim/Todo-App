@@ -1,0 +1,4 @@
+@if (completed){
+<app-badge [label]="'Completada'" [color]="'green'" />
+} @else {
+<app-badge [label]="getPriorityLabel()" [color]="getPriorityColor()" />}
