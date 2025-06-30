@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { BaseStore } from '../../store';
+import { BaseStore } from '../../stores';
 import {
   CreateBaseUseCase,
   DeleteByIdBaseUseCase,

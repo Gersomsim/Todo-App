@@ -11,3 +11,6 @@ export * from './category';
 export * from './task';
 
 export * from './tag';
+
+// Comment use cases
+export * from './comment';
