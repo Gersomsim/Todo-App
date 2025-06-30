@@ -84,7 +84,7 @@ Para cada [nombre_de_la_entidad] (ej. task) genera los siguientes archivos:
         El constructor debe llamar a super(httpService, mapper).
         Las importaciones necesarias son para BaseAdapter (desde ./common/base.adapter), HttpService (desde @infrastructure/http/http.service), y CommonMapper (desde @core/application/mappers/common/common.mapper).
         No se deben generar los métodos toDomain ni toModel.
-        Ejemplo de nombre: src/app/infrastructure/adapters/task/task.adapter.ts
+        Ejemplo de nombre: src/app/infrastructure/adapters/task.adapter.ts
 
     Token de Inyección de Dependencias (DI):
         Ruta: src/app/infrastructure/di/tokens/[nombre_de_la_entidad].token.ts
@@ -117,7 +117,7 @@ Para cada [nombre_de_la_entidad] (ej. task) genera los siguientes archivos:
         Debe extender de BaseFacade<[NombreEntidadCamelCase]>.
         La importación de BaseFacade debe ser de ./common/base.facade.
         Las importaciones de casos de uso y la entidad deben usar los alias correspondientes (ej. @application/use-cases, @domain/models).
-        El constructor debe inyectar override readonly store: [NombreEntidadCamelCase]Store y todos los casos de uso (override readonly createUseCase: CreateBaseUseCase<[NombreEntidadCamelCase]>, updateUseCase: UpdateByIdBaseUseCase<[NombreEntidadCamelCase]>, deleteUseCase: DeleteByIdBaseUseCase<[NombreEntidadCamelCase]>, getByIdUseCase: GetByIdBaseUseCase<[NombreEntidadCamelCase]>, getAllUseCase: GetAllBaseUseCase<[NombreEntidadCamelCase]>).
+        El constructor debe inyectar override readonly store: [NombreEntidadCamelCase]Store y todos los casos de uso (override readonly createUseCase: Create[NombreEntidadCamelCase]UseCase, updateUseCase: Update[NombreEntidadCamelCase]UseCase, deleteUseCase: Delete[NombreEntidadCamelCase]UseCase, getByIdUseCase: Get[NombreEntidadCamelCase]ByIdUseCase, getAllUseCase: GetAll[NombreEntidadCamelCase]UseCase).
         El constructor debe llamar a super(store, getAllUseCase, getByIdUseCase, createUseCase, updateUseCase, deleteUseCase);.
         No se deben generar métodos adicionales para la interacción con el store o la ejecución de casos de uso, ya que BaseFacade los provee.
         Ejemplo de nombre: src/app/infrastructure/state/facades/task.facade.ts
