@@ -38,7 +38,7 @@ export abstract class BaseAdapter<T, Persistence> {
 
   async update(id: string, body: any): Promise<T> {
     const response = this.http
-      .put<ApiResponse<Persistence>>(`${this.baseUrl}/${id}`, body)
+      .patch<ApiResponse<Persistence>>(`${this.baseUrl}/${id}`, body)
       .pipe(map((response) => this.mapperCommon.toDomain(response.data)));
     return lastValueFrom(response);
   }
