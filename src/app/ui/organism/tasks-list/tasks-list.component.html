@@ -1,0 +1,5 @@
+@if (loading()) {
+<p>Cargando...</p>
+} @else { @for (task of tasks(); track task.id) {
+<app-task [task]="task" />
+} }
