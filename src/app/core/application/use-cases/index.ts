@@ -9,3 +9,5 @@ export * from './category';
 
 // Task use cases
 export * from './task';
+
+export * from './tag';
