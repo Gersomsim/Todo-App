@@ -12,7 +12,6 @@ export interface Task {
   category: Category;
   dueDate?: Date;
   tags?: Tag[];
-  attachments?: File[];
   comments?: Comment[];
   subtasks?: Task[];
   createdAt?: Date;

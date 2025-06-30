@@ -43,7 +43,7 @@ export abstract class BaseAdapter<T, Persistence> {
     return lastValueFrom(response);
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: string): Promise<T> {
     const response = this.httpService
       .delete<ApiResponse<Persistence>>(`${this.baseUrl}/${id}`)
       .pipe(map((response) => this.mapper.toDomain(response.data)));

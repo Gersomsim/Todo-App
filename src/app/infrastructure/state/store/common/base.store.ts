@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { createStore, Store, withProps } from '@ngneat/elf';
 import { withEntities } from '@ngneat/elf-entities';
 import { localStorageStrategy, persistState } from '@ngneat/elf-persist-state';
