@@ -2,9 +2,9 @@
 
 Una aplicación moderna de gestión de tareas construida con Angular, implementando **Arquitectura Hexagonal** y **Diseño Atómico** para una experiencia de usuario excepcional.
 
-![Todo App](https://img.shields.io/badge/Angular-17-red?style=for-the-badge&logo=angular)
+![Todo App](https://img.shields.io/badge/Angular-18-red?style=for-the-badge&logo=angular)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-38B2AC?style=for-the-badge&logo=tailwind-css)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1.11-38B2AC?style=for-the-badge&logo=tailwind-css)
 
 ## 🎯 Características Principales
 
