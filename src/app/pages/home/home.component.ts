@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { LayoutAppComponent } from '../../layout/layout-app/layout-app.component';
 import { AsideComponent } from '../../ui/organism/aside/aside.component';
-import { TaskComponent } from '../../ui/molecules/task/task.component';
 import { PaginationComponent } from '../../ui/molecules/pagination/pagination.component';
 import { FiltersComponent } from '../../ui/molecules/filters/filters.component';
 import { StatsComponent } from '../../ui/molecules/stats/stats.component';
 import { NewTaskComponent } from '../../ui/organism/new-task/new-task.component';
+import { TasksListComponent } from '@ui/organism/tasks-list/tasks-list.component';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +13,7 @@ import { NewTaskComponent } from '../../ui/organism/new-task/new-task.component'
   imports: [
     LayoutAppComponent,
     AsideComponent,
-    TaskComponent,
+    TasksListComponent,
     PaginationComponent,
     FiltersComponent,
     StatsComponent,
