@@ -1,0 +1,65 @@
+<button
+  (click)="isOpen.set(!isOpen())"
+  type="button"
+  cdkOverlayOrigin
+  #trigger="cdkOverlayOrigin"
+  class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer"
+>
+  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+    ></path>
+  </svg>
+</button>
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="trigger"
+  [cdkConnectedOverlayOpen]="isOpen()"
+  (detach)="isOpen.set(false)"
+>
+  <ul
+    class="z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white dark:bg-gray-700 py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden sm:text-sm"
+    id="options"
+    role="listbox"
+  >
+    <li
+      class="relative cursor-default text-gray-900 dark:text-gray-50 select-none"
+      role="option"
+      tabindex="-1"
+    >
+      <button
+        class="flex items-center gap-2 w-full py-2 pr-9 pl-3 cursor-pointer hover:bg-gray-400"
+        (click)="openForm()"
+      >
+        <span>Editar</span>
+      </button>
+    </li>
+    <li
+      class="relative cursor-default text-gray-900 dark:text-gray-50 select-none"
+      role="option"
+      tabindex="-1"
+    >
+      <button
+        class="flex items-center gap-2 py-2 pr-9 pl-3 w-full cursor-pointer hover:bg-gray-400"
+        (click)="completeTask()"
+      >
+        <span>Completar</span>
+      </button>
+    </li>
+    <li
+      class="relative cursor-default text-gray-900 dark:text-gray-50 select-none"
+      role="option"
+      tabindex="-1"
+    >
+      <button
+        class="flex items-center py-2 pr-9 pl-3 gap-2 w-full cursor-pointer hover:bg-gray-400"
+        (click)="deleteTask()"
+      >
+        <span>Eliminar</span>
+      </button>
+    </li>
+  </ul>
+</ng-template>

@@ -63,7 +63,7 @@ export abstract class FacadeBase<T extends { id: string }> {
       return null;
     }
   }
-  async update(id: string, item: T, alone = false): Promise<T | null> {
+  async update(id: string, item: Partial<T>, alone = false): Promise<T | null> {
     this.store.setLoading(true);
     try {
       const updatedItem = await this.updateUseCase.execute(id, item);
