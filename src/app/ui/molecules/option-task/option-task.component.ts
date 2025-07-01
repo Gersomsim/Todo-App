@@ -21,6 +21,7 @@ export class OptionTaskComponent {
   isOpen = signal(false);
 
   openForm() {
+    this.isOpen.set(false);
     this.dialog.open(FormTaskComponent, {
       width: '400px',
       height: '400px',
