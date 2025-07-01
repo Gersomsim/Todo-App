@@ -5,7 +5,7 @@
     >
       📝 Nueva Tarea
     </h3>
-    <form [formGroup]="form">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="mt-2 max-w-xl text-sm text-gray-500 dark:text-gray-400">
         <div>
           <app-label for="title">Título</app-label>
@@ -15,11 +15,16 @@
             id="title"
             placeholder="Título"
             size="sm"
+            formControlName="title"
           />
         </div>
         <div class="mt-2">
           <app-label for="title">Prioridad</app-label>
-          <app-select />
+          <app-select formControlName="priority" [options]="priorityOptions" />
+        </div>
+        <div class="mt-2">
+          <app-label for="title">Categoría</app-label>
+          <app-search-and-create-category formControlName="category_id" />
         </div>
         <cdk-accordion-item
           #accordionItem="cdkAccordionItem"
@@ -43,6 +48,7 @@
               name="description"
               id="description"
               placeholder="Descripción"
+              formControlName="description"
             />
           </div>
           <div class="mt-2">
@@ -53,13 +59,17 @@
               id="dueDate"
               placeholder="Fecha de vencimiento"
               size="sm"
+              formControlName="dueDate"
             />
           </div>
           }
         </cdk-accordion-item>
       </div>
       <div class="mt-5">
-        <app-button type="submit" color="blue"> 💾 Crear Tarea </app-button>
+        <app-button type="submit" color="blue" class="flex items-center gap-2">
+          <span class="text-xl">💾</span>
+          <span>Crear Tarea</span>
+        </app-button>
       </div>
     </form>
   </div>
