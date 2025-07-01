@@ -1,1 +1,8 @@
-<textarea [rows]="rows" [name]="name" [id]="id" [class]="getClass()"></textarea>
+<textarea
+  [rows]="rows"
+  [name]="name"
+  [id]="id"
+  [class]="getClass()"
+  [formControl]="textarea"
+  (blur)="onTouched()"
+></textarea>
