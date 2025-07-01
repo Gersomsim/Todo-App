@@ -9,22 +9,51 @@
     </div>
 
     <button
-      class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+      [ngClass]="{
+      'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200':
+        params().completed === undefined && params().priority === undefined,
+      'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 hover:bg-gray-200':
+        params().completed !== undefined || params().priority !== undefined,
+    }"
+      class="px-3 py-1 text-sm rounded-full transition-colors cursor-pointer"
+      (click)="clearFilter()"
     >
       Todas
     </button>
     <button
-      class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+      [ngClass]="{
+        'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200':
+          !params().completed,
+        'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 hover:bg-gray-200':
+          params().completed === undefined || params().completed,
+      }"
+      class="px-3 py-1 text-sm rounded-full transition-colors cursor-pointer"
+      (click)="onFilter({ completed: false })"
     >
       Pendientes
     </button>
     <button
-      class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+      [ngClass]="{
+        'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200':
+          params().completed,
+        'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 hover:bg-gray-200':
+          params().completed === undefined ||
+          params().completed === false,
+      }"
+      class="px-3 py-1 text-sm rounded-full transition-colors cursor-pointer"
+      (click)="onFilter({ completed: true })"
     >
       Completadas
     </button>
     <button
-      class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+      [ngClass]="{
+        'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200':
+          params().priority === PriorityTask.HIGH,
+        'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 hover:bg-gray-200':
+          params().priority === undefined
+      }"
+      class="px-3 py-1 text-sm rounded-full transition-colors cursor-pointer"
+      (click)="onFilter({ priority: PriorityTask.HIGH })"
     >
       Urgentes
     </button>
@@ -32,10 +61,12 @@
     <div class="ml-auto">
       <select
         class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        [formControl]="order"
+        (change)="onOrder()"
       >
-        <option>Ordenar por fecha</option>
-        <option>Ordenar por prioridad</option>
-        <option>Ordenar por categoría</option>
+        <option value="createdAt">Ordenar por fecha</option>
+        <option value="priority">Ordenar por prioridad</option>
+        <option value="category">Ordenar por categoría</option>
       </select>
     </div>
   </div>
