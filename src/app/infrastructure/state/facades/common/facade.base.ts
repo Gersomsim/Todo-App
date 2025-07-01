@@ -50,7 +50,7 @@ export abstract class FacadeBase<T extends { id: string }> {
       this.store.setLoading(false);
     }
   }
-  async create(item: T): Promise<T | null> {
+  async create(item: Partial<T>): Promise<T | null> {
     this.store.setLoading(true);
     try {
       const newItem = await this.createUseCase.execute(item);
