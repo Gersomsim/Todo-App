@@ -1,6 +1,8 @@
+@if (task.dueDate) {
 <p class="flex gap-2">
   @if(icon){
   <app-icon icon="calendar" />
   }
   {{ label() }}
 </p>
+}
