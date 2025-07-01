@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Color } from '@ui/types/color.type';
 import { Size } from '@ui/types/size.type';
 
@@ -17,10 +17,11 @@ export class ButtonComponent {
   @Input() disabled: boolean = false;
   @Input() class: string = '';
   @Input() fullWidth: boolean = false;
+  @Output() click = new EventEmitter<void>();
 
   getClass() {
     const base =
-      'shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2';
+      'shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 cursor-pointer';
 
     const sizeClass = {
       sm: 'text-xs px-2 py-1',
@@ -49,5 +50,8 @@ export class ButtonComponent {
     return `${base} ${sizeClass[this.size]} ${
       colorClass[this.color]
     } ${fullWidthClass} ${roundedClass[this.rounded]} ${this.class}`;
+  }
+  onClick() {
+    this.click.emit();
   }
 }
