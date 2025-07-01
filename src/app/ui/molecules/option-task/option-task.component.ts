@@ -24,6 +24,9 @@ export class OptionTaskComponent {
     this.dialog.open(FormTaskComponent, {
       width: '400px',
       height: '400px',
+      data: {
+        task: this.task,
+      },
     });
   }
 
