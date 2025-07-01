@@ -15,5 +15,5 @@ export interface Task {
   comments?: Comment[];
   subtasks?: Task[];
   createdAt?: Date;
-  updatedAt?: Date;
+  completedAt?: Date;
 }

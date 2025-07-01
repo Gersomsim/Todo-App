@@ -10,13 +10,7 @@ import { BadgeTaskComponent } from '../badge-task/badge-task.component';
 @Component({
   selector: 'app-task',
   standalone: true,
-  imports: [
-    NgClass,
-    TagComponent,
-    TaskStatusComponent,
-    IconComponent,
-    BadgeTaskComponent,
-  ],
+  imports: [TagComponent, TaskStatusComponent, BadgeTaskComponent],
   templateUrl: './task.component.html',
   styleUrl: './task.component.css',
 })

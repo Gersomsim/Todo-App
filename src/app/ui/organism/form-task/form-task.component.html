@@ -1,0 +1,66 @@
+<div class="bg-white shadow-sm sm:rounded-lg dark:bg-gray-800 w-md mx-auto">
+  <div class="px-4 py-5 sm:p-6">
+    <h3
+      class="text-xl text-center font-semibold text-gray-900 dark:text-gray-50 mb-4"
+    >
+      📝 Nueva Tarea
+    </h3>
+    <form [formGroup]="form">
+      <div class="mt-2 max-w-xl text-sm text-gray-500 dark:text-gray-400">
+        <div>
+          <app-label for="title">Título</app-label>
+          <app-input
+            type="text"
+            name="title"
+            id="title"
+            placeholder="Título"
+            size="sm"
+          />
+        </div>
+        <div class="mt-2">
+          <app-label for="title">Prioridad</app-label>
+          <app-select />
+        </div>
+        <cdk-accordion-item
+          #accordionItem="cdkAccordionItem"
+          class="example-accordion-item"
+        >
+          <div class="mt-2 flex justify-between items-center gap-2">
+            <hr class="my-2 w-full border-gray-200 dark:border-gray-700" />
+            <span class="text-gray-500 dark:text-gray-400">Detalles</span>
+            <button (click)="accordionItem.toggle()">
+              @if (accordionItem.expanded) {
+              <app-icon icon="arrow-up" />
+              } @else {
+              <app-icon icon="arrow-down" />
+              }
+            </button>
+          </div>
+          @if (accordionItem.expanded) {
+          <div class="mt-2">
+            <app-label for="description">Descripción</app-label>
+            <app-textarea
+              name="description"
+              id="description"
+              placeholder="Descripción"
+            />
+          </div>
+          <div class="mt-2">
+            <app-label for="dueDate">F. vencimiento</app-label>
+            <app-input
+              type="date"
+              name="dueDate"
+              id="dueDate"
+              placeholder="Fecha de vencimiento"
+              size="sm"
+            />
+          </div>
+          }
+        </cdk-accordion-item>
+      </div>
+      <div class="mt-5">
+        <app-button type="submit" color="blue"> 💾 Crear Tarea </app-button>
+      </div>
+    </form>
+  </div>
+</div>
