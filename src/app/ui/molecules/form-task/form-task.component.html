@@ -26,49 +26,39 @@
           <app-label for="title">Categoría</app-label>
           <app-search-and-create-category formControlName="category_id" />
         </div>
-        <cdk-accordion-item
-          #accordionItem="cdkAccordionItem"
-          class="example-accordion-item"
-        >
-          <div class="mt-2 flex justify-between items-center gap-2">
-            <hr class="my-2 w-full border-gray-200 dark:border-gray-700" />
-            <span class="text-gray-500 dark:text-gray-400">Detalles</span>
-            <button (click)="accordionItem.toggle()">
-              @if (accordionItem.expanded) {
-              <app-icon icon="arrow-up" />
-              } @else {
-              <app-icon icon="arrow-down" />
-              }
-            </button>
-          </div>
-          @if (accordionItem.expanded) {
-          <div class="mt-2">
-            <app-label for="description">Descripción</app-label>
-            <app-textarea
-              name="description"
-              id="description"
-              placeholder="Descripción"
-              formControlName="description"
-            />
-          </div>
-          <div class="mt-2">
-            <app-label for="dueDate">F. vencimiento</app-label>
-            <app-input
-              type="date"
-              name="dueDate"
-              id="dueDate"
-              placeholder="Fecha de vencimiento"
-              size="sm"
-              formControlName="dueDate"
-            />
-          </div>
-          }
-        </cdk-accordion-item>
+        <div class="mt-2 flex justify-between items-center gap-2">
+          <hr class="my-2 w-full border-gray-200 dark:border-gray-700" />
+          <span class="text-gray-500 dark:text-gray-400">Detalles</span>
+        </div>
+        <div class="mt-2">
+          <app-label for="description">Descripción</app-label>
+          <app-textarea
+            name="description"
+            id="description"
+            placeholder="Descripción"
+            formControlName="description"
+          />
+        </div>
+        <div class="mt-2">
+          <app-label for="dueDate">F. vencimiento</app-label>
+          <app-input
+            type="date"
+            name="dueDate"
+            id="dueDate"
+            placeholder="Fecha de vencimiento"
+            size="sm"
+            formControlName="dueDate"
+          />
+        </div>
       </div>
       <div class="mt-5">
         <app-button type="submit" color="blue" class="flex items-center gap-2">
           <span class="text-xl">💾</span>
+          @if (modal.task === null) {
           <span>Crear Tarea</span>
+          } @else {
+          <span>Actualizar Tarea</span>
+          }
         </app-button>
       </div>
     </form>

@@ -6,13 +6,17 @@ import { LabelComponent } from '@ui/atoms/label/label.component';
 import { ButtonComponent } from '@ui/atoms/button/button.component';
 import { TextareaComponent } from '@ui/atoms/textarea/textarea.component';
 import { SelectComponent } from '@ui/atoms/select/select.component';
-import { IconComponent } from '../../atoms/icon/icon.component';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { Option } from '@shared/interfaces';
 import { SearchAndCreateCategoryComponent } from '../search-and-create-category/search-and-create-category.component';
 import { TaskFacade } from '@infrastructure/state/facades/task.facade';
 import { Task } from '@core/domain/models';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
+import { DateTime } from 'luxon';
+
+interface FormTaskData {
+  task: Task | null;
+}
 
 @Component({
   selector: 'app-form-task',
@@ -24,7 +28,6 @@ import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
     ButtonComponent,
     TextareaComponent,
     SelectComponent,
-    IconComponent,
     CdkAccordionModule,
     SearchAndCreateCategoryComponent,
   ],
@@ -33,9 +36,11 @@ import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 })
 export class FormTaskComponent {
   taskFacade = inject(TaskFacade);
-  modal = inject(DIALOG_DATA);
+  modal = inject<FormTaskData>(DIALOG_DATA);
   private dialogRef = inject(DialogRef);
   fb = inject(FormBuilder);
+  task = signal<Task | null>(null);
+  showDetails = signal(false);
 
   openDetails = signal(false);
   priorityOptions: Option[] = Object.values(PriorityTask).map((priority) => ({
@@ -46,19 +51,56 @@ export class FormTaskComponent {
   form = this.fb.group({
     title: ['', Validators.required],
     description: [''],
-    priority: [PriorityTask.LOW, Validators.required],
+    priority: ['', Validators.required],
     category_id: ['', Validators.required],
     dueDate: [''],
   });
 
+  ngOnInit() {
+    if (this.modal.task !== null) {
+      this.task.set(this.modal.task);
+      let dueDate = '';
+      if (this.modal.task.dueDate) {
+        dueDate = DateTime.fromJSDate(new Date(this.modal.task.dueDate))
+          .toFormat('yyyy-MM-dd')
+          .toString();
+      }
+
+      this.form.patchValue({
+        title: this.modal.task.title,
+        description: this.modal.task.description,
+        priority: this.modal.task.priority,
+        category_id: this.modal.task.category.id,
+        dueDate: dueDate,
+      });
+    }
+  }
+
   onSubmit() {
     if (this.form.valid) {
-      this.taskFacade.create(this.form.value as Partial<Task>).then((task) => {
+      if (this.modal.task === null) {
+        this.createTask();
+      } else {
+        this.updateTask();
+      }
+    }
+  }
+  createTask() {
+    this.taskFacade.create(this.form.value as Partial<Task>).then((task) => {
+      if (task) {
+        this.form.reset();
+        this.dialogRef.close();
+      }
+    });
+  }
+  updateTask() {
+    this.taskFacade
+      .update(this.task()!.id, this.form.value as Partial<Task>)
+      .then((task) => {
         if (task) {
           this.form.reset();
           this.dialogRef.close();
         }
       });
-    }
   }
 }
