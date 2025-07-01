@@ -45,6 +45,8 @@ export class ButtonComponent {
       yellow:
         'bg-yellow-600 hover:bg-yellow-500 focus-visible:outline-yellow-600 text-white',
       gray: 'bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600 text-white',
+      purple:
+        'bg-purple-600 hover:bg-purple-500 focus-visible:outline-purple-600 text-white',
     };
     const fullWidthClass = this.fullWidth ? 'w-full' : '';
     return `${base} ${sizeClass[this.size]} ${
