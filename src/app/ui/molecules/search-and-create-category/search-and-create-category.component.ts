@@ -74,7 +74,11 @@ export class SearchAndCreateCategoryComponent {
   onBlur = () => {};
 
   writeValue(value: string): void {
-    this.search.setValue(value, { emitEvent: false });
+    const category = this.categories().find(
+      (category) => category.id === value
+    );
+    console.log(category, value);
+    this.search.setValue(category?.name || '', { emitEvent: false });
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;

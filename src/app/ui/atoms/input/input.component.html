@@ -1,8 +1,11 @@
 <input
+  #inputElement
+  autocomplete="off"
   [type]="type"
   [name]="name"
   [id]="id"
   [placeholder]="placeholder"
   [disabled]="disabled"
   [class]="getClass()"
+  (blur)="onTouched()"
 />
