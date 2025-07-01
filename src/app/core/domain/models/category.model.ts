@@ -1,6 +1,8 @@
+import { CategoryColors } from '../types/category-colors';
+
 export interface Category {
   id: string;
   name: string;
-  color?: string;
+  color?: CategoryColors;
   icon?: string;
 }

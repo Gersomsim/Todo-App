@@ -6,13 +6,13 @@ import { PriorityTask as Priority } from '@core/domain/enum/priority-task.enum';
 import { debounceTime } from 'rxjs';
 
 @Component({
-  selector: 'app-search',
+  selector: 'app-widget-search',
   standalone: true,
   imports: [ReactiveFormsModule],
-  templateUrl: './search.component.html',
-  styleUrl: './search.component.css',
+  templateUrl: './widget-search.component.html',
+  styleUrl: './widget-search.component.css',
 })
-export class SearchComponent {
+export class WidgetSearchComponent {
   route = inject(ActivatedRoute);
   router = inject(Router);
   search = new FormControl('');

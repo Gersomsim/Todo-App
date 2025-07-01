@@ -1,7 +1,7 @@
 import { Component, inject, Input, signal } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { Dialog } from '@angular/cdk/dialog';
-import { FormTaskComponent } from '@ui/organism/form-task/form-task.component';
+import { FormTaskComponent } from '@ui/molecules/form-task/form-task.component';
 import { Task } from '@core/domain/models';
 import { TaskFacade } from '@infrastructure/state/facades/task.facade';
 

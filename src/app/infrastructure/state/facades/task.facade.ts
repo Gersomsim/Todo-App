@@ -9,6 +9,7 @@ import {
   GetAllTaskUseCase,
 } from '@core/application/use-cases/task';
 import { TaskStore } from '../stores/task.store';
+import { PriorityTask } from '@core/domain/enum/priority-task.enum';
 
 @Injectable({ providedIn: 'root' })
 export class TaskFacade extends FacadeBase<Task> {
@@ -28,5 +29,13 @@ export class TaskFacade extends FacadeBase<Task> {
       updateUseCase,
       deleteUseCase
     );
+  }
+
+  getTasksImportant(date: string): Promise<Task[]> {
+    return this.getAllUseCase.execute({
+      completed: false,
+      priority: PriorityTask.HIGH,
+      dueDate: date,
+    });
   }
 }

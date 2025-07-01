@@ -1,0 +1,76 @@
+<div
+  class="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-4 border border-emerald-100 dark:border-gray-600"
+>
+  <div class="flex items-center gap-2 mb-4">
+    <svg
+      class="w-5 h-5 text-emerald-600 dark:text-emerald-400"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+      ></path>
+    </svg>
+    <h3 class="font-semibold text-gray-900 dark:text-white">
+      Productividad Hoy
+    </h3>
+  </div>
+
+  <!-- Progreso circular -->
+  <div class="flex justify-center mb-4">
+    <div class="relative w-20 h-20">
+      <svg class="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
+        <path
+          class="text-gray-200 dark:text-gray-700"
+          fill="currentColor"
+          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+        <path
+          class="text-emerald-500"
+          fill="currentColor"
+          stroke-dasharray="75, 100"
+          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+        />
+      </svg>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <span class="text-lg font-bold text-gray-900 dark:text-white">
+          {{ taskCompleted().length / taskToday().length || 0 }} %
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estadísticas -->
+  <div class="grid grid-cols-2 gap-3 text-center">
+    <div class="bg-white dark:bg-gray-800 rounded-lg p-2">
+      <div class="text-lg font-bold text-emerald-600 dark:text-emerald-400">
+        {{ taskCompleted().length }}
+      </div>
+      <div class="text-xs text-gray-600 dark:text-gray-400">Completadas</div>
+    </div>
+    <div class="bg-white dark:bg-gray-800 rounded-lg p-2">
+      <div class="text-lg font-bold text-gray-600 dark:text-gray-400">
+        {{ taskToday().length }}
+      </div>
+      <div class="text-xs text-gray-600 dark:text-gray-400">Pendientes</div>
+    </div>
+  </div>
+
+  <div class="mt-3 text-center">
+    <p class="text-sm text-gray-600 dark:text-gray-400">
+      @if(taskCompleted().length === 0 && taskToday().length > 0){ ¡Empecemos
+      una tarea! }@else{ @if(taskToday().length === 0){ ¡No hay tareas
+      pendientes! }@else{
+      {{
+        taskCompleted().length / taskToday().length > 0.5
+          ? "¡Excelente progreso hoy!"
+          : "¡Buen trabajo!"
+      }}
+      } }
+    </p>
+  </div>
+</div>

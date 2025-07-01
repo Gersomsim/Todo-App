@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
-import { FormTaskComponent } from '../form-task/form-task.component';
+import { FormTaskComponent } from '../../molecules/form-task/form-task.component';
 
 @Component({
   selector: 'app-new-task',

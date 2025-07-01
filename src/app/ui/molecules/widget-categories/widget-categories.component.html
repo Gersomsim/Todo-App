@@ -1,0 +1,48 @@
+<div
+  class="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-4 border border-purple-100 dark:border-gray-600"
+>
+  <div class="flex items-center gap-2 mb-4">
+    <svg
+      class="w-5 h-5 text-purple-600 dark:text-purple-400"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+      ></path>
+    </svg>
+    <h3 class="font-semibold text-gray-900 dark:text-white">Categorías</h3>
+  </div>
+
+  <div class="flex flex-wrap gap-2">
+    @if(loading()){
+    <div class="flex items-center justify-center">
+      <div
+        class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500 dark:border-purple-400"
+      ></div>
+    </div>
+    }@else{ @for(category of categories(); track category.id){
+    <span
+      class="px-3 py-2 text-sm rounded-lg cursor-pointer transition-colors"
+      [ngClass]="getColor(category.color)"
+      >{{ category.name }} (12)</span
+    >
+    }@empty {
+    <div class="flex items-center justify-center">
+      <p class="text-sm text-gray-500 dark:text-gray-400">No hay categorías</p>
+    </div>
+    } }
+  </div>
+
+  <button
+    class="w-full mt-3 text-sm text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium transition-colors"
+    (click)="openDialog()"
+    type="button"
+  >
+    + Nueva categoría
+  </button>
+</div>

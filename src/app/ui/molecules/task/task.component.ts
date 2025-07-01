@@ -7,6 +7,7 @@ import { TaskStatusComponent } from '../task-status/task-status.component';
 import { IconComponent } from '../../atoms/icon/icon.component';
 import { BadgeTaskComponent } from '../badge-task/badge-task.component';
 import { OptionTaskComponent } from '../option-task/option-task.component';
+import { ExpirationCompleteComponent } from '../expiration-complete/expiration-complete.component';
 
 @Component({
   selector: 'app-task',
@@ -16,6 +17,7 @@ import { OptionTaskComponent } from '../option-task/option-task.component';
     TaskStatusComponent,
     BadgeTaskComponent,
     OptionTaskComponent,
+    ExpirationCompleteComponent,
   ],
   templateUrl: './task.component.html',
   styleUrl: './task.component.css',

@@ -1,0 +1,73 @@
+<div
+  class="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-gray-800 dark:to-gray-700 rounded-xl p-4 border border-amber-100 dark:border-gray-600"
+>
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <svg
+        class="w-5 h-5 text-amber-600 dark:text-amber-400"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+        ></path>
+      </svg>
+      <h3 class="font-semibold text-gray-900 dark:text-white">
+        Tareas Importantes
+      </h3>
+    </div>
+    <span
+      class="text-xs bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200 px-2 py-1 rounded-full"
+      >{{ tasks().length }}</span
+    >
+  </div>
+
+  <div class="space-y-3">
+    @if(loading()){
+    <div class="flex items-center justify-center">
+      <div
+        class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-amber-500 dark:border-amber-400"
+      ></div>
+    </div>
+    }@else{ @for(task of tasksImportant(); track task.id){
+    <div
+      class="flex items-start gap-3 p-3 bg-white dark:bg-gray-800 rounded-lg border border-amber-200 dark:border-gray-600"
+    >
+      <div
+        class="w-4 h-4 mt-0.5 border-2 border-amber-500 rounded-sm cursor-pointer hover:bg-amber-500 transition-colors"
+      ></div>
+      <div class="flex-1 min-w-0">
+        <p class="text-sm font-medium text-gray-900 dark:text-white truncate">
+          {{ task.title }}
+        </p>
+        <p class="text-xs text-gray-500 dark:text-gray-400">
+          <app-expiration-complete [task]="task" />
+        </p>
+      </div>
+      <span
+        class="text-xs bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 px-2 py-1 rounded-full"
+        >Urgente</span
+      >
+    </div>
+    }@empty {
+    <div class="flex items-center justify-center">
+      <p class="text-sm text-gray-500 dark:text-gray-400">
+        No hay tareas importantes
+      </p>
+    </div>
+    } }
+  </div>
+
+  @if(tasksImportant().length > 0){
+  <button
+    class="w-full mt-3 text-sm text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 font-medium transition-colors"
+    (click)="onViewAllImportantTasks()"
+  >
+    Ver todas las importantes
+  </button>
+  }
+</div>
