@@ -1,5 +1,9 @@
 import { createStore, Store, withProps } from '@ngneat/elf';
-import { withEntities } from '@ngneat/elf-entities';
+import {
+  selectAllEntities,
+  setEntities,
+  withEntities,
+} from '@ngneat/elf-entities';
 import { localStorageStrategy, persistState } from '@ngneat/elf-persist-state';
 import { map, Observable } from 'rxjs';
 
@@ -70,33 +74,33 @@ export abstract class BaseStore<T extends { id: string }> {
   }
   // entities
   setEntities(entities: T[]) {
-    this.store.update((state) => ({
-      ...state,
-      entities,
-    }));
+    this.store.update(setEntities(entities));
   }
   entities(): Observable<T[]> {
-    return this.store.pipe(map((state) => state.entities));
+    return this.store.pipe(selectAllEntities());
   }
   addEntity(entity: T) {
-    this.store.update((state) => ({
-      ...state,
-      entities: [...state.entities, entity],
-    }));
+    this.store.pipe(selectAllEntities()).subscribe((entities) => {
+      this.store.update(setEntities([...entities, entity]));
+    });
   }
   updateEntityById(id: string, entity: Partial<T>) {
-    this.store.update((state) => ({
-      ...state,
-      entities: state.entities.map((e: T) =>
-        e.id === id ? { ...e, ...entity } : e
-      ),
-    }));
+    this.store.pipe(selectAllEntities()).subscribe((entities) => {
+      const index = entities.findIndex((e) => e.id === id);
+      if (index !== -1) {
+        entities[index] = { ...entities[index], ...entity };
+        this.store.update(setEntities(entities));
+      }
+    });
   }
   removeEntityById(id: string) {
-    this.store.update((state) => ({
-      ...state,
-      entities: state.entities.filter((e: T) => e.id !== id),
-    }));
+    this.store.pipe(selectAllEntities()).subscribe((entities) => {
+      const index = entities.findIndex((e) => e.id === id);
+      if (index !== -1) {
+        entities.splice(index, 1);
+        this.store.update(setEntities(entities));
+      }
+    });
   }
   removeAllEntities() {
     this.store.update((state) => ({

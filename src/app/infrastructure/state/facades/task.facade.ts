@@ -43,7 +43,6 @@ export class TaskFacade extends FacadeBase<Task> {
 
   async markAsCompleted(id: string): Promise<Task> {
     const task = await this.markAsCompletedUseCase.execute(id);
-    console.log('task', task);
     this.store.updateEntityById(id, task);
     return task;
   }
