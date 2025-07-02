@@ -38,7 +38,7 @@
       </svg>
       <div class="absolute inset-0 flex items-center justify-center">
         <span class="text-lg font-bold text-gray-900 dark:text-white">
-          {{ taskCompleted().length / taskToday().length || 0 }} %
+          {{ percentageCompleted() || 0 }} %
         </span>
       </div>
     </div>
@@ -54,7 +54,7 @@
     </div>
     <div class="bg-white dark:bg-gray-800 rounded-lg p-2">
       <div class="text-lg font-bold text-gray-600 dark:text-gray-400">
-        {{ taskToday().length }}
+        {{ taskTodayPending().length }}
       </div>
       <div class="text-xs text-gray-600 dark:text-gray-400">Pendientes</div>
     </div>

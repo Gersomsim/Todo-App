@@ -21,9 +21,10 @@ export class WidgetProductivityComponent {
         'yyyy-MM-dd'
       );
       const today = DateTime.fromJSDate(this.today).toFormat('yyyy-MM-dd');
-      return taskDate === today && !task.completed;
+      return taskDate === today;
     });
   });
+
   taskCompleted = computed(() => {
     return this.workingTasks().filter((task) => {
       if (!task.completedAt) return false;
@@ -33,6 +34,13 @@ export class WidgetProductivityComponent {
       const today = DateTime.fromJSDate(this.today).toFormat('yyyy-MM-dd');
       return taskDate === today;
     });
+  });
+  taskTodayPending = computed(() => {
+    return this.taskToday().filter((task) => !task.completed);
+  });
+
+  percentageCompleted = computed(() => {
+    return (this.taskCompleted().length / this.taskTodayPending().length) * 100;
   });
 
   ngOnInit() {
