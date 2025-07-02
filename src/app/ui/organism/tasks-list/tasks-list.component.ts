@@ -19,7 +19,6 @@ export class TasksListComponent {
 
   ngOnInit() {
     this.taskFacade.items$.subscribe((tasks) => {
-      console.log('tasks', tasks);
       this.tasks.set(tasks);
     });
     this.taskFacade.loadAll();

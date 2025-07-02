@@ -37,7 +37,6 @@ export class WidgetProductivityComponent {
 
   ngOnInit() {
     this.taskFacade.items$.subscribe((tasks) => {
-      console.log('tasks - widget', tasks);
       this.workingTasks.set(tasks);
     });
   }
