@@ -21,9 +21,7 @@ export class TaskStatusComponent {
 
   ToggleCompleted() {
     this.loading.set(true);
-    const { id, ...newTask } = this.task;
-    newTask.completed = !newTask.completed;
-    this.taskFacade.update(id, newTask as Task).then(() => {
+    this.taskFacade.markAsCompleted(this.task.id).then(() => {
       this.loading.set(false);
     });
   }

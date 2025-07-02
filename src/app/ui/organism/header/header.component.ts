@@ -20,7 +20,10 @@ export class HeaderComponent {
     return this.tasks().filter((task) => !task.completed);
   });
   percentageCompleted = computed(() => {
-    return (this.taskCompleted().length / this.tasks().length) * 100 || 0;
+    const totalTasks = this.tasks().length;
+    const completedTasks = this.taskCompleted().length;
+    const percentage = (completedTasks / totalTasks) * 100 || 0;
+    return percentage.toFixed(0);
   });
 
   ngOnInit() {

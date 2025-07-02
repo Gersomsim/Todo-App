@@ -15,4 +15,9 @@ export class TaskRepositoryImpl
   constructor(private readonly taskAdapter: TaskAdapter) {
     super(taskAdapter);
   }
+
+  async markAsCompleted(id: string): Promise<Task> {
+    const task = await this.taskAdapter.markAsCompleted(id);
+    return task;
+  }
 }

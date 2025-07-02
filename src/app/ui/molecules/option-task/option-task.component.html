@@ -19,9 +19,6 @@
   [cdkConnectedOverlayOrigin]="trigger"
   [cdkConnectedOverlayOpen]="isOpen()"
   (detach)="isOpen.set(false)"
-  [cdkConnectedOverlayPositionChange]="onPositionChange"
-  [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'"
-  [cdkConnectedOverlayHasBackdrop]="true"
   (backdropClick)="isOpen.set(false)"
 >
   <ul

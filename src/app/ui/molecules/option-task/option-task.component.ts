@@ -32,10 +32,9 @@ export class OptionTaskComponent {
   }
 
   completeTask() {
-    this.taskFacade.update(this.task.id, {
-      completed: !this.task.completed,
+    this.taskFacade.markAsCompleted(this.task.id).then(() => {
+      this.isOpen.set(false);
     });
-    this.isOpen.set(false);
   }
 
   deleteTask() {

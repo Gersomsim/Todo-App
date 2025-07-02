@@ -7,6 +7,7 @@ import {
   DeleteTaskUseCase,
   GetTaskByIdUseCase,
   GetAllTaskUseCase,
+  MarkAsCompletedUseCase,
 } from '@core/application/use-cases/task';
 import { TaskStore } from '../stores/task.store';
 import { PriorityTask } from '@core/domain/enum/priority-task.enum';
@@ -19,7 +20,8 @@ export class TaskFacade extends FacadeBase<Task> {
     getByIdUseCase: GetTaskByIdUseCase,
     createUseCase: CreateTaskUseCase,
     updateUseCase: UpdateTaskUseCase,
-    deleteUseCase: DeleteTaskUseCase
+    deleteUseCase: DeleteTaskUseCase,
+    private readonly markAsCompletedUseCase: MarkAsCompletedUseCase
   ) {
     super(
       store,
@@ -37,5 +39,12 @@ export class TaskFacade extends FacadeBase<Task> {
       priority: PriorityTask.HIGH,
       dueDate: date,
     });
+  }
+
+  async markAsCompleted(id: string): Promise<Task> {
+    const task = await this.markAsCompletedUseCase.execute(id);
+    console.log('task', task);
+    this.store.updateEntityById(id, task);
+    return task;
   }
 }
