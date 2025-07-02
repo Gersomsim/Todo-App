@@ -33,41 +33,43 @@ export abstract class BaseStore<T extends { id: string }> {
     }
   }
   setLoading(loading: boolean) {
-    this.store.update((state) => ({
+    this.store.update((state: BaseStateType<T>) => ({
       ...state,
       loading,
     }));
   }
   loading(): Observable<boolean> {
-    return this.store.pipe(map((state) => state.loading));
+    return this.store.pipe(map((state: BaseStateType<T>) => state.loading));
   }
   setError(error: string) {
-    this.store.update((state) => ({
+    this.store.update((state: BaseStateType<T>) => ({
       ...state,
       error,
     }));
   }
   error(): Observable<string | null> {
-    return this.store.pipe(map((state) => state.error));
+    return this.store.pipe(map((state: BaseStateType<T>) => state.error));
   }
   // entity
   setEntity(entity: T | null) {
-    this.store.update((state) => ({
+    this.store.update((state: BaseStateType<T>) => ({
       ...state,
       entity,
     }));
   }
   entity(): Observable<T | null> {
-    return this.store.pipe(map((state) => state.entity));
+    return this.store.pipe(
+      map((state: BaseStateType<T>) => state.entity as T | null)
+    );
   }
   removeEntity() {
-    this.store.update((state) => ({
+    this.store.update((state: BaseStateType<T>) => ({
       ...state,
       entity: null,
     }));
   }
   updateEntity(entity: Partial<T>) {
-    this.store.update((state) => ({
+    this.store.update((state: BaseStateType<T>) => ({
       ...state,
       entity: { ...state.entity, ...entity },
     }));
@@ -80,12 +82,12 @@ export abstract class BaseStore<T extends { id: string }> {
     return this.store.pipe(selectAllEntities());
   }
   addEntity(entity: T) {
-    this.store.pipe(selectAllEntities()).subscribe((entities) => {
+    this.store.pipe(selectAllEntities()).subscribe((entities: T[]) => {
       this.store.update(setEntities([...entities, entity]));
     });
   }
   updateEntityById(id: string, entity: Partial<T>) {
-    this.store.pipe(selectAllEntities()).subscribe((entities) => {
+    this.store.pipe(selectAllEntities()).subscribe((entities: T[]) => {
       const index = entities.findIndex((e) => e.id === id);
       if (index !== -1) {
         entities[index] = { ...entities[index], ...entity };
@@ -94,7 +96,7 @@ export abstract class BaseStore<T extends { id: string }> {
     });
   }
   removeEntityById(id: string) {
-    this.store.pipe(selectAllEntities()).subscribe((entities) => {
+    this.store.pipe(selectAllEntities()).subscribe((entities: T[]) => {
       const index = entities.findIndex((e) => e.id === id);
       if (index !== -1) {
         entities.splice(index, 1);
@@ -103,9 +105,6 @@ export abstract class BaseStore<T extends { id: string }> {
     });
   }
   removeAllEntities() {
-    this.store.update((state) => ({
-      ...state,
-      entities: [],
-    }));
+    this.store.update(setEntities([]));
   }
 }
