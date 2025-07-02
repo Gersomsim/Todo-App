@@ -36,6 +36,7 @@ export class WidgetImportantTasksComponent {
       data: {
         tasks: this.tasks(),
       },
+      panelClass: 'w-2/3',
     });
   }
 }
