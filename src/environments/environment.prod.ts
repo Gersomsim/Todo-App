@@ -3,7 +3,7 @@
  */
 export const environment = {
   production: true,
-  apiUrl: 'https://api.tuapp.com/api/alfa/',
+  apiUrl: 'https://todo-app-backend-production-8e90.up.railway.app/api/alfa/',
   environment: 'production',
   debug: false,
 };
