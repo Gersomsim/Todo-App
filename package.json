@@ -24,11 +24,9 @@
     "@ngneat/elf": "^2.5.1",
     "@ngneat/elf-entities": "^5.0.2",
     "@ngneat/elf-persist-state": "^1.2.1",
-    "@tailwindcss/postcss": "^4.1.11",
     "luxon": "^3.6.1",
-    "postcss": "^8.5.6",
     "rxjs": "~7.8.0",
-    "tailwindcss": "^4.1.11",
+    "sweetalert2": "^11.6.13",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
   },
@@ -38,6 +36,7 @@
     "@angular/compiler-cli": "^18.2.0",
     "@types/jasmine": "~5.1.0",
     "@types/luxon": "^3.6.2",
+    "autoprefixer": "^10.4.21",
     "dotenv": "^17.0.1",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
@@ -45,6 +44,8 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
     "typescript": "~5.5.2"
   }
 }
